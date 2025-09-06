@@ -22,7 +22,7 @@ link PWS = https://ammar-muhammad41-footballshop.pbp.cs.ui.ac.id/
     - setelah mengkonfigurasi hal tersebut saya berlanjut untuk melakukan konfigurasi dalam skala proyek
     - setelah hal tersebut di konfigurasi saya melakukan git commit pada kode saya dan program telah berhasil.
 
-2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py,     models.py, dan berkas html.
     pertama Client (browser) mengirimkan HTTP Request ke server Django. --> urls.py mencocokkan URL yang diminta dengan pola yang sudah didefinisikan. --> views.py berisi fungsi/class view yang akan dipanggil jika URL cocok. --> Jika butuh data dari database, view akan memanggil models.py. --> models.py mengambil/menyimpan data dari/ke database dan mengembalikannya ke view. --> 
     views.py menyiapkan context (data) lalu merender HTML template. --> Template (HTML) menggabungkan data dari view dengan struktur tampilan. --> Django mengirimkan HTTP Response (HTML yang sudah jadi) kembali ke client.
 

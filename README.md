@@ -1,50 +1,38 @@
-link PWS = https://ammar-muhammad41-footballshop.pbp.cs.ui.ac.id/
+1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
 
-1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step : 
-    - pertama saya membuat direktori pada file lokal dengan nama 'footbal-shop' 
-    - buka CMD lalu kemudian mengaktifkan python environment dalam direktori 'football-shop' tersebut dengan baris kode yang ada di dalam tutorial 0
-    - setelah mengaktifkan environment saya kemudian membuat requirements.txt di dalam direktori untuk kemudian di lakukan instalasi dalam CMD
-    - setelah kebutuhan saya terinstall dengan baik saya kemudian start project django tersebut untuk memulai project football-shop
-    - setelah project di start saya kemudian membuat direktori '.env'  dan '.env.prod' untuk mengkonfigurasi production serta database milik saya
-    - setelah konfigurasi berhasil saya kemudian melakukan modifikasi pada settings yakni melakukan 'load_dotenv' serta mengubah isi dari 'ALLOWED_HOST' supaya saya dapat mengecek hasil dari kerja saya
-    - di dalam settings saya juga kemudian menambahkan konfigurasi PRODUCTION serta menggati DATABASES 
-    - kemudian saya melakukan migrasi database supaya server dapat dijalankan dengan aman
-    - setelah semua hal tersebut selesai saya kemudian menambahkan repository ke git hub serta menambahkan berkas '.gitignore'
-    - kemudian saya menghubungkan repo github saya dengan file lokal yang sudah saya buat serta membaut branch master untuk menjaga konsistensi dari editing kode saya
-    - setelah terup di github saya kemudian melakukan konfigurasi pada PWS dan menambahkan link PWS dalam allowed host
-    - setelah semua persiapan project berjalan dengan baik saya kemudian melakukan aplikasi MTV
-    - MTV dilakukan dengan mendaftarkan aplikasi main ke dalam proyek di bagian INSTALLED APPS
-    - kemudian di dalam main saya membuat direktori 'templates' untuk bisa saya isi
-    - saya kemudian melakukan implementasi models PRODUCT dan melengkapi fitur fitur yang diwajibkan oleh soal
-    - setelah melakukan beberapa perubahan pada models, saya melakukan migrasi 
-    - setelah model diterapkan say kemudian melakukan konfigurasi pada 'views' untuk dapat menerapkan database yang saya siapkan
-    - setelah views berhasil di konfigurasi, saya melanjutlan dengan melakukan konfigurasi pada routing URL yang pertama pada aplikasi main untuk dapat menampilkan show_main
-    - setelah mengkonfigurasi hal tersebut saya berlanjut untuk melakukan konfigurasi dalam skala proyek
-    - setelah hal tersebut di konfigurasi saya melakukan git commit pada kode saya dan program telah berhasil.
+dalam sebuah platform, data delivery diperlukan supaya data yang kita miliki di database dapat dikirimkan, di distribusikan yang tentu dengan tepat, cepat, aman, dan konsisten. 
 
-2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py,     models.py, dan berkas html.
-    pertama Client (browser) mengirimkan HTTP Request ke server Django. --> urls.py mencocokkan URL yang diminta dengan pola yang sudah didefinisikan. --> views.py berisi fungsi/class view yang akan dipanggil jika URL cocok. --> Jika butuh data dari database, view akan memanggil models.py. --> models.py mengambil/menyimpan data dari/ke database dan mengembalikannya ke view. --> 
-    views.py menyiapkan context (data) lalu merender HTML template. --> Template (HTML) menggabungkan data dari view dengan struktur tampilan. --> Django mengirimkan HTTP Response (HTML yang sudah jadi) kembali ke client.
+dalam implementasinya data delivery diperlukan karena memudahkan kita dalam melakukan akses database yang kita miliki. Seperti contoh, jika di ddp 2 kita memiliki user, admin, seller, buyer, disini mereka butuh data yang sama tetapi memiliki tampilan yang berbeda sehingga data delivery membantu untuk memastikan semua pihak dapat menerima data sesuai dengan kebutuhannya.
 
-    urls.py berfungsi seperti pintu masuk yang dapat memberi akses pada URL kepada views.py
-    kemudian views.py berperan sebagai sebuah operasi yang mengatur apa yang perlu dilakukan ketika URL diakses
-    selanjutnya untuk dapat mengolah data yang ada dalam database models.py berperan sebagai penjembatan untuk megelola data tersebut
-    erkas HTML yang tersedia menjadi tampilan bagi pengguna untuk dapat melihat data yang disediakan dengan lebih rapi
+selain memudahkan dalam memberi akses, kita juga perlu memiliki konsistensi dalam mengirimkan data, sehingga tanpa mekanisme data delivery yang baik, platform kita bisa jadi lambat, tidak konsisten, rawan error, dan tidak aman.
 
-3. Jelaskan peran settings.py dalam proyek Django!
-    settings.py berfungsi sebagai tempat utama untuk kita dapat melakukan konfigurasi pada proyek kita karena di dalamnya menyimpan banyak informasi seperti informasi dasar, aplikasi yang kita buat, database dan lain lain sehingga perannya sangat penting untuk keberlangsungan berjalannya suatu project berlandaskan django
+2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
 
+dari segi kebahasaan JSON lebih mudah untuk dilihat dibandingkan dengan XML, kemudian JSON dapat lebih cepat melakukan parsing dibandingkan XML. ia juga merupakan bahasa yang ukuran datanya lebih kecil sehingga akan lebih efisien dalam penghematan resource networknya. JSON juga mudah diintegrasikan dengan REST API karena kebanyakan layanan menggunakan JSON, namun dari hal tersebut kita dapat mengetahui bahwa
 
-4. Bagaimana cara kerja migrasi database di Django?
-    pertama migrasi dilakukan bila sedang membuat model atau telah membuat model yang baru yang dimana nantinya berfungsi untuk jalannya projek kita, setelah kita membuat model yang kita inginkan kita perlu untuk membuat catatan terkait perubahan yang kia lakukan dengan 'makemigrations' setelah hal itu dilaksanakan barulah kita melaksanakan 'migrate'
+jika kita ingin membangun sebuah platform yang hanya butuh data sederhana, cepat, dan untuk API/web/mobile maka JSON lebih unggul
 
-    secara cara kerja ketika tahap makemigrations, Django akan membaca perubahan yang kita lakukan pada models.py kemudian membuat file migrasi di folder migrations, file ini akan berisi instruksi python untuk membuat/mengubah tabel di database
+Namun, jika kita butuh platform yang lebih kompleks datanya seperti dokumen dengan metadata/validasi skema maka XML masih lebih relevan
 
-    kemudian ketika migrate dilaksanakan, Django akan mengeksekusi file migrasi tersebut ke datase dengan membuat tabel baru, menambah/menghapus kolom, mengubah tipe data kolom, dll
-    Django juga mencatat status dari migrasi dalam tabel khusus bernama 'django_migrations' supaya nantinya kita dapat mengetahui migrasi mana yang sudah diterapkan
+3. Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
 
-5. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
-    menurut saya sebagai pemula yang dulu telah mencoba berbagai platform untuk mengembangkan suatu software ketika saya dalam ajang perlombaan, menurut saya django memiliki keunggulan untuk dapat dipelajari oleh pemula karena saya lebih mudah memahami alur dan "harus ngapainnya" dibandingkan ketika saya mempelajari framework lain seperti flutter dkk, ia juga meruapakan framework yang cukup lengkap, aman, serta banyak didukung oleh berbagai community dalam pengaplikasiannya, tak lupa juga karena saya telah lama tidak bertemu python menurut saya ini merupakan sebuah refreshing dalam bahas python sehingga mudah untuk dipahami.
+untuk mengetahui mengapa kita membutuhkan method tersebut, kita perlu mengetahui kegunaan dan fungsi dari is_valid(). Pertama is_valid() berfungsi untuk menjadi lapisan proteksi supaya data yang masuk ke database aman, kedua jika form tidak divalidasi maka akan ada kemungkinan terjadinya error di level database atau logic pada program, ketiga is_valid() mengisi form.errors yang bisa ditampilkan kembali di halaman supaya user tahu letak dari kesalahannya, terakhir dengan is_valid(), kita jadi tidak perlu melakukan manual check satu per satu terhadap input, cukup dengan mendefinisikan aturan di form dan Djago yang akan melakukan validasi, sehingga penting untuk kita menggunakan is_valid() guna memvalidasi input user sesuai aturan field Django, menghasilkan data yang clean jika valid dan akan error jika tidak valid hal ini tentu meningkatkan keamanan, konsistensi, dan kemudahan feedback pada user.
 
-6. Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
-    sejauh ini saya sangat senang dengan semua asdos yang menemani dan membantu saya dalam mata kuliah pbp ini, semua asdos yang saya tanyai sangat amat membatnu dan bisa menerangkan dengan jelas, tidak hanya membantu tapi juga mengerti bagaimana membuat saya paham sembari menerapkan "ini lho nanti kegunaannya untu kini kedepannya" sehingga saya lebih mengerti tentang apa yang penting dan yang harus dilakukan dalam mata kuliah ini. saya sangat berharap semoga kedepannya hal ini dapat dipertahankan dan semangattt untuk kakak kakak asdos <3.
+4. Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+
+kita memerlukan scrf_token pada django untuk dapat mencegah yang namanya csrf [Cross-Site Request Forgery], yakni serangan dimana penyerang memaksa user mengirim request ke server tanpa sepengetahuan User itu sendiri, sehingga bisa lika tidak menambahkan scrf_ttoken form kita besar kemungkinannya untuk dieksploitasi dengan namanya CSRF attack, penyerang juga bisa membuat page yang berbahaya atau page yang tidak kita inginkan yang bisa secara otomatis mengirim request POST pada aplikasi kita. biasanya penyerang memanfaatkan dengan mengetahui terlebih dahulu endpoint rawan pada user seperti 'delete account', 'trasnfer money', dll. Setelahnya mereka akan membuat page dengan from auto-submit, jika korban membuka halaman tersebut saat login, maka browser akan otomatis mengirim cookie session. Tanpa adanya csrf_token, server dapat mengira request itu sah sehingga akun bisa terhapus atau uang bisa dikirim kepada penyerang.
+
+5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+pertama saya membuat template base html untuk kerangka dasar kita dalam root folder, kemudian sata membuat perubahan dalam main.html di dalam main/templates dengan mengikuti kerangka yang telah saya buat dalam base.html. setelah hal tersebut selesai saya memodifikasi views.py dengan kebutuhan yang sesuai dengan toko saya, dalam kasus ini menambahkan beberapa funciton untuk dapat memanfaatkan XML dan JSON, setelah modifikasi saya lakukan , saya melakukan konfigurasi pada urls.py di dalam direktri main dengan menambahkan beberapa path dan import yang sesuai dengan yang telah saya ubah dalam views.py
+
+setelah hal tersebut selesai saya melakukan konfigurasi pada main/templates dengan menambahkan berkan create_product dan products_detail, tak lupa terkahir untuk menambahkan CSRF supaya form saya tetap aman dalam penggunaanya.
+
+6. Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?
+
+tidak banyak, namun terimakasihh telah membantu ketika error saat web menjadi error jika di push pada PWS dimana saya tidak tahu errornya dimana, serta memperkenalkan extension database viewer untuk dapat membaca isi dari database saya
+
+7. 
+
+![alt text](image.png) --> XML
+![alt text](image-1.png) --> JSON

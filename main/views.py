@@ -27,14 +27,14 @@ def create_product(request):
     return render(request, "create_product.html", context)
 
 def show_product(request, id):
-    shops = get_object_or_404(Product, pk=id)
-    shops.increment_views()
+    products = get_object_or_404(Product, pk=id)
+    products.increment_views()
 
     context = {
-        'shops': shops
+        'products': products
     }
 
-    return render(request, "shops_detail.html", context)
+    return render(request, "products_detail.html", context)
 
 def show_xml(request):
     product_list = Product.objects.all()

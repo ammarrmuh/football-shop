@@ -34,5 +34,8 @@ tidak banyak, namun terimakasihh telah membantu ketika error saat web menjadi er
 
 7. 
 
-![alt text](image.png) --> XML
-![alt text](image-1.png) --> JSON
+![alt text](image.png) --> JSON
+![alt text](image-2.png) --> JSON by ID
+![alt text](image-1.png) --> XML
+![alt text](image-3.png) --> XML by ID
+

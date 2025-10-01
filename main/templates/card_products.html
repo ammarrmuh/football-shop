@@ -28,12 +28,12 @@
     <div class="absolute top-4 right-4 flex flex-col gap-2">
       {% if products.is_featured %}
         <span class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold bg-yellow-400 text-yellow-900 shadow-lg backdrop-blur-sm animate-pulse">
-          Featured
+          ⭐ Featured
         </span>
       {% endif %}
-      {% if products.is_products_hot %}
+      {% if products.is_product_hot %}
         <span class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-500 text-white shadow-lg backdrop-blur-sm">
-          Hot
+          🔥 Hot
         </span>
       {% endif %}
     </div>
@@ -41,6 +41,18 @@
 
   <!-- Content -->
   <div class="p-6">
+    <!-- Price Badge -->
+    <div class="mb-4">
+      <span class="inline-flex items-center text-2xl font-bold text-green-600">
+        Rp {{ products.price|floatformat:0 }}
+      </span>
+      {% if products.quantity > 0 %}
+        <span class="ml-2 text-sm text-gray-500">• Stock: {{ products.quantity }}</span>
+      {% else %}
+        <span class="ml-2 text-sm text-red-500">• Out of Stock</span>
+      {% endif %}
+    </div>
+
     <!-- Meta Info -->
     <div class="flex items-center text-xs text-gray-500 mb-3 space-x-3">
       <time datetime="{{ products.created_at|date:'c' }}" class="flex items-center">
@@ -54,20 +66,25 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
         </svg>
-        {{ products.products_views }} views
+        {{ products.product_views }} views
       </span>
     </div>
 
     <!-- Title -->
-    <h3 class="text-lg font-bold text-gray-900 mb-3 line-clamp-2 leading-tight group-hover:text-green-600 transition-colors duration-300">
+    <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 leading-tight group-hover:text-green-600 transition-colors duration-300">
       <a href="{% url 'main:show_product' products.id %}" class="hover:underline">
         {{ products.name }}
       </a>
     </h3>
 
+    <!-- Brand -->
+    {% if products.brand %}
+    <p class="text-sm text-gray-500 mb-3">Brand: {{ products.brand }}</p>
+    {% endif %}
+
     <!-- Description -->
-    <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 mb-4">
-      {{ products.description|truncatewords:20 }}
+    <p class="text-gray-600 text-sm leading-relaxed line-clamp-2 mb-4">
+      {{ products.description|truncatewords:15 }}
     </p>
 
     <!-- Action Buttons -->
@@ -75,7 +92,7 @@
       <div class="flex items-center justify-between pt-4 border-t border-gray-100">
         <a href="{% url 'main:show_product' products.id %}" 
            class="flex items-center text-green-600 hover:text-green-700 font-semibold text-sm transition-all duration-300 hover:gap-2 gap-1">
-          Read more
+          View Details
           <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
@@ -101,7 +118,7 @@
       <div class="pt-4 border-t border-gray-100">
         <a href="{% url 'main:show_product' products.id %}" 
            class="inline-flex items-center text-green-600 hover:text-green-700 font-semibold text-sm transition-all duration-300 group-hover:gap-2 gap-1">
-          Read more
+          View Details
           <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>

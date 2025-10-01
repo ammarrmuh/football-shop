@@ -85,4 +85,129 @@
         </article>
     </div>
 </div>
+
+<script>
+// Configuration
+const PRODUCTS_ID = "{{ products.id }}";
+const PRODUCTS_DETAIL_ENDPOINT = `{% url 'main:show_json_by_id' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', PRODUCTS_ID);
+
+// DOM Elements
+const loadingState = document.getElementById('loading-state');
+const errorState = document.getElementById('error-state');
+const articleContent = document.getElementById('article-content');
+const badgesContainer = document.getElementById('badges-container');
+const articleTitle = document.getElementById('article-title');
+const articleDate = document.getElementById('article-date');
+const articleViews = document.getElementById('article-views');
+const featuredImageContainer = document.getElementById('featured-image-container');
+const featuredImage = document.getElementById('featured-image');
+const articleContentText = document.getElementById('article-content-text');
+const articleAuthor = document.getElementById('article-author');
+
+// Show/hide page sections
+function showState(state) {
+    loadingState.classList.toggle('hidden', state !== 'loading');
+    errorState.classList.toggle('hidden', state !== 'error');
+    articleContent.classList.toggle('hidden', state !== 'ready');
+}
+
+// Get readable category name
+function getCategoryLabel(categoryCode) {
+    const categoryMapping = {
+        shirt: 'Shirt',
+        jersey: 'Jersey',
+        shoes: 'Shoes',
+        socks: 'Socks',
+        ball: 'Ball',
+        short: 'Short',
+        jacket: 'Jacket',
+        hoodie: 'Hoodie',
+    };
+    return categoryMapping[categoryCode] || categoryCode;
+}
+
+// Render article content
+function renderArticle(products) {
+    // Set title
+    articleTitle.textContent = products.name;
+    document.title = `${products.name} - Football Shop`;
+    
+    // Set badges
+    badgesContainer.innerHTML = '';
+    
+    // Category badge
+    const categoryBadge = document.createElement('span');
+    categoryBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-green-600 text-white';
+    categoryBadge.textContent = getCategoryLabel(products.category);
+    badgesContainer.appendChild(categoryBadge);
+    
+    // Featured badge
+    if (products.is_featured) {
+        const featuredBadge = document.createElement('span');
+        featuredBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-yellow-100 text-yellow-800';
+        featuredBadge.textContent = 'Featured';
+        badgesContainer.appendChild(featuredBadge);
+    }
+    
+    // Hot badge
+    if (products.products_views > 20) {
+        const hotBadge = document.createElement('span');
+        hotBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-red-100 text-red-800';
+        hotBadge.textContent = 'Hot';
+        badgesContainer.appendChild(hotBadge);
+    }
+    
+    // Set date and views
+    const formattedDate = new Date(products.created_at).toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    articleDate.textContent = formattedDate;
+    articleViews.textContent = `${products.products_views} views`;
+    
+    // Set featured image
+    if (products.thumbnail) {
+        featuredImage.src = products.thumbnail;
+        featuredImage.alt = products.title;
+        featuredImageContainer.classList.remove('hidden');
+    } else {
+        featuredImageContainer.classList.add('hidden');
+    }
+    
+    // Set content
+    articleContentText.textContent = products.content;
+    
+    // Set author
+    const authorName = products.user_username || 'Anonymous';
+    articleAuthor.textContent = `Author: ${authorName}`;
+}
+
+// Fetch news detail
+async function loadProductsDetail() {
+    try {
+        showState('loading');
+        
+        const response = await fetch(PRODUCTS_DETAIL_ENDPOINT, {
+            headers: { 'Accept': 'application/json' },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch news detail');
+        }
+
+        const productsData = await response.json();
+        renderArticle(productsData);
+        showState('ready');
+    } catch (error) {
+        console.error('Error loading news detail:', error);
+        showState('error');
+    }
+}
+
+// Initialize page
+loadNewsDetail();
+</script>
 {% endblock content %}

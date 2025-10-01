@@ -1,0 +1,122 @@
+{% load static %}
+<nav class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-lg border-b border-gray-200 shadow-sm z-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <a href="/">
+          <img src="{% static 'image/FS-logo.png' %}" alt="Football Shop Logo" class="w-10 h-10 rounded-xl shadow-lg object-cover" />
+        </a>
+        <h1 class="text-xl font-bold text-gray-900">
+          <span class="text-green-600">Football</span> Shop
+        </h1>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="/" class="flex items-center text-gray-600 hover:text-green-600 font-semibold transition-all duration-300 hover:-translate-y-0.5">
+          <svg class="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          </svg>
+          Home
+        </a>
+        <a href="{% url 'main:create_product' %}" class="flex items-center text-gray-600 hover:text-green-600 font-semibold transition-all duration-300 hover:-translate-y-0.5">
+          <svg class="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Add Product
+        </a>
+      </div>
+      
+      <!-- Desktop User Section -->
+      <div class="hidden md:flex items-center space-x-4">
+        {% if user.is_authenticated %}
+          <div class="text-right bg-gradient-to-r from-green-50 to-green-100 px-4 py-2 rounded-xl border border-green-200">
+            <div class="text-sm font-semibold text-gray-900">{{ name|default:user.username }}</div>
+            <div class="text-xs text-gray-600">{{ npm|default:"Student" }} • {{ class|default:"Class" }}</div>
+          </div>
+          <a href="{% url 'main:logout' %}" class="flex items-center text-red-600 hover:text-red-700 font-semibold transition-all duration-300 hover:-translate-y-0.5">
+            <svg class="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Logout
+          </a>
+        {% else %}
+          <a href="{% url 'main:login' %}" class="text-gray-600 hover:text-gray-900 font-semibold transition-all duration-300">
+            Login
+          </a>
+          <a href="{% url 'main:register' %}" class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2.5 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
+            Register
+          </a>
+        {% endif %}
+      </div>
+      
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden flex items-center">
+        <button class="mobile-menu-button p-2 text-gray-600 hover:text-green-600 transition-colors">
+          <span class="sr-only">Open menu</span>
+          <div class="w-6 h-6 flex flex-col justify-center items-center space-y-1.5">
+            <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm"></span>
+            <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm"></span>
+            <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu hidden md:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200 shadow-lg">
+    <div class="px-6 py-4 space-y-4">
+      <!-- Mobile Navigation Links -->
+      <div class="space-y-2">
+        <a href="/" class="flex items-center text-gray-600 hover:text-green-600 font-semibold py-3 transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          </svg>
+          Home
+        </a>
+        <a href="{% url 'main:create_product' %}" class="flex items-center text-gray-600 hover:text-green-600 font-semibold py-3 transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Add Product
+        </a>
+      </div>
+      
+      <!-- Mobile User Section -->
+      <div class="border-t border-gray-200 pt-4">
+        {% if user.is_authenticated %}
+          <div class="mb-4 bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-xl border border-green-200">
+            <div class="font-semibold text-gray-900">{{ name|default:user.username }}</div>
+            <div class="text-sm text-gray-600">{{ npm|default:"Student" }} • {{ class|default:"Class" }}</div>
+          </div>
+          <a href="{% url 'main:logout' %}" class="flex items-center text-red-600 hover:text-red-700 font-semibold py-3 transition-colors">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Logout
+          </a>
+        {% else %}
+          <div class="space-y-3">
+            <a href="{% url 'main:login' %}" class="block text-gray-600 hover:text-gray-900 font-semibold py-3 text-center transition-colors">
+              Login
+            </a>
+            <a href="{% url 'main:register' %}" class="block bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-3 px-4 rounded-xl text-center shadow-md transition-all duration-300">
+              Register
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const btn = document.querySelector("button.mobile-menu-button");
+    const menu = document.querySelector(".mobile-menu");
+  
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  </script>
+</nav>

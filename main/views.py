@@ -14,7 +14,7 @@ from django.urls import reverse
 
 @login_required(login_url='/login')
 def show_main(request):
-    filter_type = request.GET.get("filter", "")  # default 'all'
+    filter_type = request.GET.get("filter", "all")  # default 'all'
 
     if filter_type == "all":
         shop_list = Product.objects.all()
@@ -113,5 +113,23 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def edit_products(request, id):
+    product = get_object_or_404(Product, pk=id)
+    form = ShopForm(request.POST or None, instance=product)
+    if form.is_valid() and request.method == 'POST':
+        form.save()
+        return redirect('main:show_main')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, "edit_products.html", context)
+
+def delete_products(request, id):
+    news = get_object_or_404(Product, pk=id)
+    news.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
 
 
